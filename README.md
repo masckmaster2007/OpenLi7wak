@@ -14,6 +14,6 @@ OpenLi7wak can be easily blocked with some basic PHP knowledge, unless modified.
 # Files
 - Base64.js - is encode.exe (used pkg to package...)
 - bug.php - A file to put online (ngrok if ran locally)
-- screwme.bat - Main File
+- index.bat - Main File
 
 Credits to the folks @ Paradoxum (Lunatic Raider) for inspiring me into making this ethical tool ;)
