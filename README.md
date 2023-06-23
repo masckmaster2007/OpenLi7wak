@@ -1,9 +1,7 @@
-# Thanks for everyone for fucking my life even more
-I got banned of GDPSFH and getting exposed. You wanted that for me right?
+# I am sorry for me being an ahole
 
-Meanwhile the fellas at Lunatic just don't care and raid gdpses. I ADDED TEN FUCKING THOUSAND WARNINGS IN THE TOOL TO CLARIFY ITS FOR ETHICAL PURPOSES
-
-Thank y'all, I appreciate it
+Thanks to catstik and co handling me and unbanning me
+Thank y'all, I appreciate it :)
 
 # OpenLi7wak
 Geometry Dash Open Source raider for ethical purposes.
