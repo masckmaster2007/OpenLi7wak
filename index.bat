@@ -143,7 +143,7 @@ goto :q
 goto cl
 :ru
 echo You will provide the following info: Bug URL (gdps containing the bug code)
-echo and the target GDPS to spam (eg https://anygdps.ps.fhgdps.com)
+echo and the target GDPS to spam (eg https://anygdps.com/database)
 echo.
 set /p origin=Enter the bug GDPS url (full path): 
 set /p target=Enter the GDPS url: 
