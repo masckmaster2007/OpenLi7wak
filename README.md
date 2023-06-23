@@ -1,8 +1,3 @@
-# I am sorry for me being an ahole
-
-Thanks to catstik and co handling me and unbanning me
-Thank y'all, I appreciate it :)
-
 # OpenLi7wak
 Geometry Dash Open Source raider for ethical purposes.
 **This is for education purposes only.**
