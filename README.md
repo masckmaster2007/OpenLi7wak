@@ -9,7 +9,7 @@ OpenLi7wak can be easily blocked with some basic PHP knowledge, unless modified.
 - [x] ANON Level Spam
 - [x] Leaderboard DOS
 - [x] Message Spam
-- [ ] [Rotating Proxies support](https://webshare.io)
+- [x] [Rotating Proxies support](https://webshare.io)
 
 # Files
 - Base64.js - is encode.exe (used pkg to package...)
