@@ -5,11 +5,17 @@ Geometry Dash Open Source raider for ethical purposes.
 
 OpenLi7wak can be easily blocked with some basic PHP knowledge, unless modified...
 
+# How will exploits be updated on OpenLi7wak from NOW
+We will first contact developers and let them know about a vulnerability.
+
+Once it is fixed, OpenLi7wak will be updated few days later
+
 # Features
 - [x] ANON Level Spam
 - [x] Leaderboard DOS
 - [x] Message Spam
 - [x] [Rotating Proxies support](https://webshare.io)
+- [ ] MigMatos REUPLOAD circumvent
 
 # Files
 - Base64.js - is encode.exe (used pkg to package...)
