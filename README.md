@@ -1,6 +1,6 @@
 # OpenLi7wak
-Geometry Dash Open Source raider for ethical purposes.
-**This is for education purposes only.**
+Geometry Dash Open Source raider for ethical purposes. Inspired by paid tool "Lunatic Raider"
+**This is for educational purposes only.**
 **Owner of GDPS is fully allowed to disclose the attacker's IP address if no explicit consent was given**
 
 OpenLi7wak can be easily blocked with some basic PHP knowledge, unless modified...
@@ -14,8 +14,9 @@ Once it is fixed, OpenLi7wak will be updated few days later
 - [x] ANON Level Spam
 - [x] Leaderboard DOS
 - [x] Message Spam
-- [x] [Rotating Proxies support](https://webshare.io)
+- [x] [Rotating Proxies support](https://oxylabs.io/features/rotating-proxies)
 - [x] MigMatos REUPLOAD circumvent
+- [ ] Linux+Mac/BASH support (proxychains3 + tor my beloved)
 
 # Files
 OpenLi7wak is seperated in 2 folders, client and server. Client has:
