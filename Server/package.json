@@ -1,0 +1,12 @@
+{
+  "name": "express-http-server",
+  "version": "1.0.0",
+  "description": "Node.js HTTP server with Express",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}

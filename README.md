@@ -15,9 +15,15 @@ Once it is fixed, OpenLi7wak will be updated few days later
 - [x] Leaderboard DOS
 - [x] Message Spam
 - [x] [Rotating Proxies support](https://webshare.io)
-- [x] MigMatos REUPLOAD circumvent (in v2.1)
+- [x] MigMatos REUPLOAD circumvent
 
 # Files
-- Base64.js - is encode.exe (used pkg to package...)
-- bug.php - A file to put online (ngrok if ran locally) [THIS FILE WILL BE DEPRECATED]
+OpenLi7wak is seperated in 2 folders, client and server. Client has:
+
+- Base64.js - encode.exe (used pkg to package...)
 - index.bat - Main File
+
+Server has:
+
+- index.js and package.json - A GDPS loginGJAccount and downloadGJLevel "emulator"
+- bug.php - Legacy script for "emulating" downlodaGJLevel, can be put online in any host that has PHP [NOW DEPRECATED]
