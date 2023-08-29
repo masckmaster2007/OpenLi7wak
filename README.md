@@ -1,9 +1,7 @@
 # OpenLi7wak
-Geometry Dash Open Source raider for ethical purposes. Inspired by paid tool "Lunatic Raider"
-**This is for educational purposes only.**
-**Owner of GDPS is fully allowed to disclose the attacker's IP address if no explicit consent was given**
+**As index retired and the lunatic community is dead, I'm archiving this repo. The (almost) v3 is now in the repo**
 
-OpenLi7wak can be easily blocked with some basic PHP knowledge, unless modified...
+OpenLi7wak can be easily blocked with some basic PHP knowledge unless modified...
 
 # How will exploits be updated on OpenLi7wak from NOW
 We will first contact developers and let them know about a vulnerability.
