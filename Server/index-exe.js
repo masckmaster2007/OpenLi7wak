@@ -50,6 +50,7 @@ app.post('/level/:pid/:lid', (req, res) => {
   res.send(response);
 });
 
+/* JS
 if (process.argv.length < 2) {
   console.log("Port required (server.exe PORT)");
 } else {
@@ -58,8 +59,9 @@ if (process.argv.length < 2) {
     console.log(`Server listening on port ${port}`);
   });
 }
+*/
 
-/* exe
+
 if (process.argv.length < 3) {
 console.log("Port required (server.exe PORT)");
 } else {
@@ -68,7 +70,7 @@ app.listen(port, () => {
   console.log(`Server listening on port ${port}`);
 });
 }
-*/
+
 
 function proutte() {
   const phrases = [
@@ -83,9 +85,9 @@ function proutte() {
     "Esi eisai ",
     "didnes real v",
     "le 18 25 ta pt ",
-    "atlas accept my frq ",
+    "atlas accept my frq",
     "ichigo plus xyrr lore v",
-    "Jean Tasoeur v",
+    "Jean TaSoeur v",
     "update ur gdps ",
     "hcaptcha wen ",
     "cirqueman ",

